@@ -36,7 +36,8 @@ SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name
 SQL> select log_mode,flashback_on from v$database;
 
 
-**3. FLASHBACK SCENARIOS**
+
+**3. Flashback Scenarios**
 
 
 **3.1 DROP TABLE**
