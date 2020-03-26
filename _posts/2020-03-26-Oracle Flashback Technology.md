@@ -124,6 +124,21 @@ SQL> select versions_starttime,versions_endtime,id,salary from emp3 versions bet
 
 SQL> select versions_startscn,versions_endscn,id,salary from emp3 versions between scn minvalue and maxvalue where id=3;
 
+SQL> select * from emp3 as of timestamp TO_TIMESTAMP('2018-11-10 09:07:00','YYYY-MM-DD HH24:MI:SS');
+
+SQL> select id,salary from emp3 as of scn 3080310 where id=3;
+
+SQL> flashback table emp3 to scn 3080310;
+
+ORA-08189: cannot flashback the table because row movement is not enabled
+
+SQL> alter table emp3 enable row movement;
+
+SQL> flashback table emp3 to scn 3080310;
+
+SQL> select * from emp3;
+
+
 
 
 
