@@ -89,7 +89,7 @@ SQL> alter index "BIN$ejoy9vcUJn7gVAAUT/jf3w==$1" rename to IND3;
 
 SQL> select table_name,index_name from user_indexes where index_name='IND3';
 
-**3.2 ORACLE FLASHBACK VERSION QUERY **
+**3.2 ORACLE FLASHBACK VERSION QUERY**
 
 This feature helps to view all the versions of all the rows that ever existed in one or more tables in between two points in time or system change numbers (SCN).This feature also depends on UNDO data.
 
