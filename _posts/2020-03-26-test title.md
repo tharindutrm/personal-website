@@ -4,7 +4,7 @@ title: "The title of my blog post"
 
 # My first blog
 
-This is a chapter. 
+This is a chapter. Normal Text.
 
 ## Sub - Header
 
