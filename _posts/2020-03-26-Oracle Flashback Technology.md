@@ -21,7 +21,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
     SQL> Alter System Set DB_RECOVERY_FILE_DEST='/Source/File/';
     
 
-**2.Check Parameters**
+**2. Check Parameters**
 
 SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 
