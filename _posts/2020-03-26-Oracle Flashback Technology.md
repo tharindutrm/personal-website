@@ -13,7 +13,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 
   - DB_RECOVERY_FILE_DEST_SIZE: Size limit for the maximum data that can be retained.
   
-    SQL> Alter System Set DB_RECOVERY_FILE_DEST_SIZE=536870912;
+    SQL> Alter System Set DB_RECOVERY_FILE_DEST_SIZE=2G;
 
   - DB_RECOVERY_FILE_DEST: Location where the data needs to be retained.
   
@@ -33,5 +33,6 @@ SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name
 
 SQL> select log_mode,flashback_on from v$database;
 
-**3.SCENARIOS**
+**3. SCENARIOS**
+
 
