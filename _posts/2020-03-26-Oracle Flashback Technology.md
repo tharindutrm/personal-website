@@ -5,6 +5,7 @@ title: "Oracle Flashback Technology"
 # ORACLE FLASHBACK TECHNOLOGY
 Use to recover data from Logical corruptions. Most of the Flashback technologies depend on the **UNDO** data to retrieve older data
 
+
 **1. Set Database Parameters**
 
   - DB_FLASHBACK_RETENTION_TARGET: Time limit for the deleted data to be retained
@@ -18,6 +19,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
   - DB_RECOVERY_FILE_DEST: Location where the data needs to be retained.
   
     SQL> Alter System Set DB_RECOVERY_FILE_DEST='/Source/File/';
+    
 
 **2.Check Parameters**
 
@@ -33,7 +35,9 @@ SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name
 
 SQL> select log_mode,flashback_on from v$database;
 
-**3. SCENARIOS**
+
+**3. FLASHBACK SCENARIOS**
+
 
 **3.1 DROP TABLE**
 
@@ -45,9 +49,7 @@ Syntax:
 
 FLASHBACK TABLE EMP2 TO BEFORE DROP;
 
-CASE 1. TABLES WITHOUT INDEXES
-
-SQL> set linesize 100
+*CASE 1. TABLES WITHOUT INDEXES*
 
 SQL> select table_name from user_tables;
 
@@ -68,7 +70,7 @@ SQL> select * from emp2;
 SQL> select object_name,original_name from recyclebin;
 
 
-CASE 2. TABLES WITH INDEXES
+*CASE 2. TABLES WITH INDEXES*
 
 SQL> create index ind3 on t1(id);
 
