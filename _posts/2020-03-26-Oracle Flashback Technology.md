@@ -55,6 +55,16 @@ SQL> Alter System Set DB_RECOVERY_FILE_DEST='/Source/File/';
 ## 2. Check Database Parameters
 
 ```SQL
+
+SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
+
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+db_flashback_retention_target	     integer	 4320
+
+```
+
+```SQL
 SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 
 NAME				     TYPE	 VALUE
