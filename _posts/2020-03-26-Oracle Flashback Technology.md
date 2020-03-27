@@ -7,7 +7,7 @@ comments: true
 Use to recover data from Logical corruptions. Most of the Flashback technologies depend on the **UNDO** data to retrieve older data
 
 
-**1. Set Database Parameters**
+## 1. Set Database Parameters
 
   - DB_FLASHBACK_RETENTION_TARGET: Time limit for the deleted data to be retained(minutes)
     ```SQL
@@ -22,30 +22,28 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
     SQL> Alter System Set DB_RECOVERY_FILE_DEST='/Source/File/';
     ```
 
-**2. Check Parameters**
+## 2. Check Parameters
 
-```SQL
-SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
+    ```SQL
+    SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 
-SQL> show parameter DB_RECOVERY_FILE_DEST_SIZE;
+    SQL> show parameter DB_RECOVERY_FILE_DEST_SIZE;
 
-SQL> show parameter db_recovery_file_dest;
+    SQL> show parameter db_recovery_file_dest;
 
-SQL> show parameter undo_retention;
-```
+    SQL> show parameter undo_retention;
+    ```
 <img src="../img/11.JPG" alt="hi" class="inline"/>
-```SQL
-SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
 
-SQL> select log_mode,flashback_on from v$database;
-```
+    ```SQL
+    SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
 
+    SQL> select log_mode,flashback_on from v$database;
+    ```
 
+## 3. Flashback Scenarios
 
-**3. Flashback Scenarios**
-
-
-**3.1 DROP TABLE**
+### 3.1 DROP TABLE
 
 Flashback drop is used to restore accidentally dropped tables and depended objects. After restoring the table will be renamed as its original whereas the indexes will have system generated names. Using `select * ` command
 
