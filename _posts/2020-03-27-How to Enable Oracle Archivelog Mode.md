@@ -1,7 +1,5 @@
 ---
-layout: default
 title: "Oracle Flashback Technology"
-comments: true
 ---
 
 # How to Enable/Disable Oracle Archivelog Mode
