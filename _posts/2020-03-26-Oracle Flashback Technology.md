@@ -4,7 +4,6 @@ title: "Oracle Flashback Technology"
 comments: true
 ---
 
-# Oracle Flashback Technology 
 Use to recover data from Logical corruptions. Most of the Flashback technologies depend on the **UNDO** data to retrieve older data
 
 ## 1. Set Database Parameters 
