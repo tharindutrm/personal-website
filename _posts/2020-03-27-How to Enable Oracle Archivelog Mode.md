@@ -6,7 +6,6 @@ title: "How to Enable/Disable Oracle Archivelog Mode"
 {% highlight SHELL %}  
 [oracle@centos7 ~]$ sqlplus / as sysdba
 {% endhighlight %}
-    [oracle@centos7 ~]$ sqlplus / as sysdba
 
 {% highlight SQL %}  
 SQL> archive log list
