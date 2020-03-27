@@ -10,7 +10,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 
 - DB_FLASHBACK_RETENTION_TARGET: Time limit(minutes) for the deleted data to be retained
 
-{% highlight SQL %}  
+{% highlight sql %}  
 
 SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
 SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
