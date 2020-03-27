@@ -21,6 +21,15 @@ UNDOTBS1		       NOGUARANTEE
  
  {% endhighlight %}
  
+ ```sql
+ SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
+SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
+
+TABLESPACE_NAME 	       RETENTION
+------------------------------ -----------
+UNDOTBS1	
+```
+ 
  ```SQL
  SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
 SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
