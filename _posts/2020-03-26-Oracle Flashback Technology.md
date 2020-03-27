@@ -32,9 +32,9 @@ SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 
 SQL> show parameter DB_RECOVERY_FILE_DEST_SIZE;
 
-    SQL> show parameter db_recovery_file_dest;
+SQL> show parameter db_recovery_file_dest;
 
-    SQL> show parameter undo_retention;
+SQL> show parameter undo_retention;
 ```
 <img src="../img/11.JPG" alt="hi" class="inline"/>
 
@@ -52,12 +52,13 @@ Flashback drop is used to restore accidentally dropped tables and depended objec
 
 **Before doing flashback, confirm that the dropped object has not been purged**
 
-Syntax:
+```SQL
 
 FLASHBACK TABLE EMP2 TO BEFORE DROP;
+```
+### CASE 1. TABLES WITHOUT INDEXES
 
-*CASE 1. TABLES WITHOUT INDEXES*
-
+```SQL
 SQL> select table_name from user_tables;
 
 SQL> create table emp2 as select * from emp1;
@@ -76,7 +77,7 @@ SQL> select * from emp2;
 
 SQL> select object_name,original_name from recyclebin;
 
-
+```
 *CASE 2. TABLES WITH INDEXES*
 
 SQL> create index ind3 on t1(id);
