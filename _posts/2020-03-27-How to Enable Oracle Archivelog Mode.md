@@ -45,14 +45,7 @@ Current log sequence	       14
 SQL> shutdown immediate;
 SQL> startup mount;
 SQL> alter database noarchivelog;
-SQL> alter database noarchivelog;
-
-Database altered.
-
 SQL> alter database open;
-
-Database altered.
-
 SQL> archive log list;
 Database log mode	       No Archive Mode
 Automatic archival	       Disabled
