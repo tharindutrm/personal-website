@@ -1,5 +1,5 @@
 ---
-title: "Oracle Flashback Technology"
+title: "How to Enable/Disable Oracle Archivelog Mode"
 ---
 
 # How to Enable/Disable Oracle Archivelog Mode
