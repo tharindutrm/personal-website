@@ -28,7 +28,7 @@ SQL> startup mount;
 SQL> alter database archivelog;
 SQL> alter database open;
 ```
-## 3.Verify Configuration
+## 4.Verify Configuration
 
 ```SQL
 SQL> archive log list
@@ -39,13 +39,14 @@ Oldest online log sequence     12
 Next log sequence to archive   14
 Current log sequence	       14
 ```
-## 4.Disable Archivelog mode
+## 5.Disable Archivelog mode
 
 ```SQL
 SQL> shutdown immediate;
 SQL> startup mount;
 SQL> alter database noarchivelog;
 SQL> alter database open;
+
 SQL> archive log list;
 Database log mode	       No Archive Mode
 Automatic archival	       Disabled
