@@ -28,20 +28,30 @@ SQL> Alter System Set DB_RECOVERY_FILE_DEST='/Source/File/';
 ## 2. Check Database Parameters
 
 ```SQL
-
-SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 
 NAME				     TYPE	 VALUE
 ------------------------------------ ----------- ------------------------------
 db_flashback_retention_target	     integer	 4320
-SQL> 
 
 SQL> show parameter DB_RECOVERY_FILE_DEST_SIZE;
 
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+db_recovery_file_dest_size	     big integer 2G
+
 SQL> show parameter db_recovery_file_dest;
 
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+db_recovery_file_dest		     string	 /ora01/app/oracle/fast_recovery_area
+db_recovery_file_dest_size	     big integer 2G
+
 SQL> show parameter undo_retention;
+
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+undo_retention			     integer	 900
 ```
 
 <img src="../img/11.JPG" alt="hi" class="inline"/>
