@@ -98,7 +98,7 @@ Flashback drop is used to restore accidentally dropped tables and depended objec
 
 FLASHBACK TABLE EMP2 TO BEFORE DROP;
 ```
-### CASE 1. TABLES WITHOUT INDEXES
+### CASE 1. Tabaes Without Indexes
 
 ```SQL
 SQL> select table_name from user_tables;
@@ -120,7 +120,7 @@ SQL> select * from emp2;
 SQL> select object_name,original_name from recyclebin;
 
 ```
-*CASE 2. TABLES WITH INDEXES*
+###CASE 2. TABLES WITH INDEXES*
 
 SQL> create index ind3 on t1(id);
 
