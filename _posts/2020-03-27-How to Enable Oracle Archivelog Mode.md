@@ -17,13 +17,13 @@ Oldest online log sequence     12
 Current log sequence	       14
 ```
 
-## 2.Shutdown database and Mount database
+## 2.Shutdown Database and Mount Database
 
 ```SQL
 SQL> shutdown immediate;
 SQL> startup mount;
 ```
-## 3.Change the parameter
+## 3.Change the Parameter
 ```SQL
 SQL> alter database archivelog;
 SQL> alter database open;
@@ -39,7 +39,7 @@ Oldest online log sequence     12
 Next log sequence to archive   14
 Current log sequence	       14
 ```
-## 5.Disable Archivelog mode
+## 5.Disable Archivelog Mode
 
 ```SQL
 SQL> shutdown immediate;
