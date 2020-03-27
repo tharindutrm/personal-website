@@ -22,6 +22,9 @@ Current log sequence	       14
 ```SQL
 SQL> shutdown immediate;
 SQL> startup mount;
+```
+## 3.Change the parameter
+```SQL
 SQL> alter database archivelog;
 SQL> alter database open;
 ```
