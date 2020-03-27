@@ -61,7 +61,29 @@ undo_retention			     integer	 900
 ```SQL
 SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
 
+TABLESPACE_NAME 	       RETENTION
+------------------------------ -----------
+UNDOTBS1		       NOGUARANTEE
+
+```
+Switching from  NOGUARANTEE to GUARANTEE
+
+```SQL
+ALTER TABLESPACE UNDOTBS1 RETENTION GUARANTEE;
+
+SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
+
+TABLESPACE_NAME 	       RETENTION
+------------------------------ -----------
+UNDOTBS1		       GUARANTEE
+
+
 SQL> select log_mode,flashback_on from v$database;
+
+LOG_MODE     FLASHBACK_ON
+------------ ------------------
+NOARCHIVELOG NO
+
 ```
 
 ## 3. Flashback Scenarios
