@@ -3,10 +3,10 @@ title: "Oracle Flashback Technology"
 comments: true
 ---
 
-# Oracle Flashback Technology
+# Oracle Flashback Technology #
 Use to recover data from Logical corruptions. Most of the Flashback technologies depend on the **UNDO** data to retrieve older data
 
-## 1. Set Database Parameters
+## 1. Set Database Parameters ##
 
   - DB_FLASHBACK_RETENTION_TARGET: Time limit for the deleted data to be retained(minutes)
     
