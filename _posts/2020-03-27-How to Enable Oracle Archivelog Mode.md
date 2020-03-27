@@ -4,7 +4,7 @@ title: "Oracle Flashback Technology"
 comments: true
 ---
 
-# How to Enable Oracle Archivelog Mode
+# How to Enable/Disable Oracle Archivelog Mode
 
 ## 1. Check Current Configuration
 
@@ -36,5 +36,26 @@ Automatic archival	       Enabled
 Archive destination	       USE_DB_RECOVERY_FILE_DEST
 Oldest online log sequence     12
 Next log sequence to archive   14
+Current log sequence	       14
+```
+## 4.Disable Archivelog mode
+
+```SQL
+SQL> shutdown immediate;
+SQL> startup mount;
+SQL> alter database noarchivelog;
+SQL> alter database noarchivelog;
+
+Database altered.
+
+SQL> alter database open;
+
+Database altered.
+
+SQL> archive log list;
+Database log mode	       No Archive Mode
+Automatic archival	       Disabled
+Archive destination	       USE_DB_RECOVERY_FILE_DEST
+Oldest online log sequence     12
 Current log sequence	       14
 ```
