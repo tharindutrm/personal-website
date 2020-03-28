@@ -196,6 +196,7 @@ EMP3			       IND3
 
 ### 3.2 Oracle Flashback Version Query ###
 
+
 This feature helps to view all the versions of all the rows that ever existed in one or more tables in between two points in time or system change numbers (SCN).This feature also depends on **UNDO** data.
 
 (Update a table row several times and flashback)
@@ -399,6 +400,7 @@ SQL> select * from emp3;
 {% endhighlight %}
 
 ### 3.3 Flashback Transcation Query ###
+
 
 Flashback Transaction query allows viewing changes made by single transaction or all transactions during a period of time.
 
