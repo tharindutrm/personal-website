@@ -94,7 +94,7 @@ NOARCHIVELOG NO
 
 ### 3.1 DROP TABLE
 
-Flashback drop is used to restore accidentally dropped tables and depended objects. After restoring the table will be renamed as its original whereas the indexes will have system generated names. Using `select * ` command
+Flashback drop is used to restore accidentally dropped tables and depended objects. After restoring the table will be renamed as its original whereas the indexes will have system generated names. 
 
 **Before doing flashback, confirm that the dropped object has not been purged**
 
@@ -149,90 +149,165 @@ SQL> select * from emp2;
 
 {% endhighlight %}
 
-###CASE 2. TABLES WITH INDEXES*
+**CASE 2. Tables With Indexes**
 
-SQL> create index ind3 on t1(id);
+{% highlight SQL %}
 
-SQL>  select table_name,index_name from user_indexes where index_name='IND3';
+SQL> create index ind3 on emp3(id);
 
-SQL> drop table t1;
-
-SQL> flashback table t1 to before drop;
+Index created.
 
 SQL> select table_name,index_name from user_indexes where index_name='IND3';
 
-SQL> select table_name,index_name from user_indexes where table_name like 'T1';
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+EMP3			       IND3
 
-SQL> alter index "BIN$ejoy9vcUJn7gVAAUT/jf3w==$1" rename to IND3;
+SQL> drop table emp3;
+
+Table dropped.
+
+SQL> flashback table emp3 to before drop;
+
+Flashback complete.
 
 SQL> select table_name,index_name from user_indexes where index_name='IND3';
 
-**3.2 ORACLE FLASHBACK VERSION QUERY**
+no rows selected
 
-This feature helps to view all the versions of all the rows that ever existed in one or more tables in between two points in time or system change numbers (SCN).This feature also depends on UNDO data.
+SQL> select table_name,index_name from user_indexes where table_name='EMP3';   
 
-(Update table row several times and flashback)
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+EMP3			       BIN$oeQS8wUxDSvgUwEAAH9fzA==$0
 
-Syntax:
+SQL> alter index "BIN$oeQS8wUxDSvgUwEAAH9fzA==$0" rename to IND3;
+
+Index altered.
+
+SQL> select table_name,index_name from user_indexes where index_name='IND3';
+
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+EMP3			       IND3
+
+{% endhighlight %}
+
+###3.2 Oracle Flashback Version Query###
+
+This feature helps to view all the versions of all the rows that ever existed in one or more tables in between two points in time or system change numbers (SCN).This feature also depends on **UNDO** data.
+
+(Update a table row several times and flashback)
+
+{% highlight SQL %}
 
 Select .. Versions Between SCN | Timestamp And SCN | Timestamp
 
 Select Version_Xid,Dept_Id
 From Dept
 Version Between SCN (Referencing A Start And End SCN);
-```SQL
+
 Select Version_Xid,Dept_Id
 From Dept
 Version Between TIMESTAMP (Referencing A Start And End Timestamp);
-```
 
 SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
 
 SQL> update emp3 set salary=19900 where id=3;
 
+1 row updated.
+
 SQL> commit;
+
+Commit complete.
 
 SQL> update emp3 set salary=27700 where id=3;
 
+1 row updated.
+
 SQL> commit;
 
-
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
-
+Commit complete.
 
 SQL> col versions_starttime for a27
-
 SQL> col versions_endtime for a27
-
 SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	27700
+	 4	20000
 
 SQL> select versions_starttime,versions_endtime,id,salary from emp3 versions between scn minvalue and maxvalue where id=3;
 
+VERSIONS_STARTTIME	    VERSIONS_ENDTIME			ID     SALARY
+--------------------------- --------------------------- ---------- ----------
+28-MAR-20 11.05.19 AM						 3	27700
+28-MAR-20 11.05.07 AM	    28-MAR-20 11.05.19 AM		 3	19900
+			    28-MAR-20 11.05.07 AM		 3	20000
+
 SQL> select versions_startscn,versions_endscn,id,salary from emp3 versions between scn minvalue and maxvalue where id=3;
 
-SQL> select * from emp3 as of timestamp TO_TIMESTAMP('2018-11-10 09:07:00','YYYY-MM-DD HH24:MI:SS');
+VERSIONS_STARTSCN VERSIONS_ENDSCN	  ID	 SALARY
+----------------- --------------- ---------- ----------
+	  1243556			   3	  27700
+	  1243543	  1243556	   3	  19900
+			  1243543	   3	  20000
 
-SQL> select id,salary from emp3 as of scn 3080310 where id=3;
+SQL> select * from emp3 as of timestamp TO_TIMESTAMP('28-03-2020 11:05:07','DD-MM-YYYY HH24:MI:SS');
 
-SQL> flashback table emp3 to scn 3080310;
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
 
+SQL> select id,salary from emp3 as of scn 1243543 where id=3;
+
+	ID     SALARY
+---------- ----------
+	 3	19900
+
+SQL> select id,salary from emp3 as of scn 1243542 where id=3;
+
+	ID     SALARY
+---------- ----------
+	 3	20000
+
+SQL> flashback table emp3 to scn 1243542;
+flashback table emp3 to scn 1243542
+                *
+ERROR at line 1:
 ORA-08189: cannot flashback the table because row movement is not enabled
 
 SQL> alter table emp3 enable row movement;
 
-SQL> flashback table emp3 to scn 3080310;
+Table altered.
+
+SQL> flashback table emp3 to scn 1243542;
+
+Flashback complete.
 
 SQL> select * from emp3;
-```
 
-| Command | Description |
-| --- | --- |
-| git status | List all new or modified files |
-| git diff | Show file differences that haven't been staged |
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
 
+{% endhighlight %}
 
 
 
