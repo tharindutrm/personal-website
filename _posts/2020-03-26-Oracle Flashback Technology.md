@@ -8,6 +8,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 
 ## 1. Set Database Parameters 
 
+
 1.1 DB_FLASHBACK_RETENTION_TARGET: Time limit(minutes) for the deleted data to be retained
 
 {% highlight SQL %}  
@@ -94,7 +95,6 @@ SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name
 TABLESPACE_NAME 	       RETENTION
 ------------------------------ -----------
 UNDOTBS1		       GUARANTEE
-
 
 SQL> select log_mode,flashback_on from v$database;
 
