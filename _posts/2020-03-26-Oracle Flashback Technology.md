@@ -108,25 +108,47 @@ SQL>FLASHBACK TABLE EMP2 TO BEFORE DROP;
 
 {% highlight SQL %}
 
-SQL> select table_name from user_tables;
+SQL> select * from emp2;
 
-SQL> create table emp2 as select * from emp1;
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
 
 SQL> drop table emp2;
 
-SQL> select * from emp2;
+Table dropped.
 
+SQL> select * from emp2;
+select * from emp2
+              *
+ERROR at line 1:
 ORA-00942: table or view does not exist
 
+
 SQL> select object_name,original_name from recyclebin;
+
+OBJECT_NAME		       ORIGINAL_NAME
+------------------------------ --------------------------------
+BIN$oeQS8wUwDSvgUwEAAH9fzA==$0 EMP2
 
 SQL> flashback table emp2 to before drop;
 
+Flashback complete.
+
 SQL> select * from emp2;
 
-SQL> select object_name,original_name from recyclebin;
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
 
-```
+{% endhighlight %}
+
 ###CASE 2. TABLES WITH INDEXES*
 
 SQL> create index ind3 on t1(id);
