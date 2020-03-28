@@ -519,6 +519,129 @@ SQL> select * from emp3;
 
 {% endhighlight %}
 
+### 3.4 Flashback Database ###
+
+This feature is used to recover the database from logical corruptions.
+- It is used to perform PITR(point in time recovery) of database. 
+
+- Faster than the traditional way of performing PITR 
+
+- It requires flashback log files which are generated when we enabled flashback database. 
+
+- Only for Logical errors .not for physical errors
+
+Check estimated size
+
+{% highlight SQL %}
+
+SQL> SELECT ESTIMATED_FLASHBACK_SIZE FROM V$FLASHBACK_DATABASE_LOG;
+
+{% endhighlight %}
+
+{% highlight SQL %}
+
+SQL> select flashback_on from v$database;
+
+FLASHBACK_ON
+------------------
+NO
+
+SQL> shutdown immediate;
+SQL> startup mount;
+SQL> alter database flashback on; 
+alter database flashback on
+*
+ERROR at line 1:
+ORA-38706: Cannot turn on FLASHBACK DATABASE logging.
+ORA-38707: Media recovery is not enabled.
+
+
+SQL> alter database archivelog;
+
+Database altered.
+
+SQL> alter database flashback on;
+
+Database altered.
+
+SQL> alter database open;
+
+Database altered.
+
+SQL> select flashback_on from v$database; 
+
+FLASHBACK_ON
+------------------
+YES
+
+SQL> select NAME from v$flashback_database_logfile ;
+
+NAME
+--------------------------------------------------------------------------------
+/ora01/app/oracle/fast_recovery_area/ORCL/flashback/o1_mf_h7xvy1by_.flb
+/ora01/app/oracle/fast_recovery_area/ORCL/flashback/o1_mf_h7xvy3yp_.flb
+
+{% endhighlight %}
+
+**Drop SCOTT schema and flashback database**
+
+SQL> select username from dba_users where username='SCOTT';
+
+USERNAME
+------------------------------
+SCOTT
+
+SQL> drop user SCOTT cascade;
+
+User dropped.
+
+SQL> select username from dba_users where username='SCOTT';
+
+no rows selected
+
+SQL>  select timestamp_to_scn(to_date('03/28/2020 12:05:00','mm/dd/yyyy hh24:mi:ss')) from dual;
+
+TIMESTAMP_TO_SCN(TO_DATE('03/28/202012:05:00','MM/DD/YYYYHH24:MI:SS'))
+----------------------------------------------------------------------
+							       1247017
+							       
+SQL> create user u2 identified by u2;
+
+User created.
+
+SQL> select username from dba_users where username='U2';
+
+USERNAME
+------------------------------
+U2
+
+SQL> shutdown immediate;
+SQL> startup mount;
+
+SQL> flashback database to scn 1247017;
+
+Flashback complete.
+
+SQL> alter database open resetlogs;
+
+Database altered.
+
+SQL> select username from dba_users where username='U2';
+
+no rows selected
+
+SQL> select username from dba_users where username='SCOTT';
+
+USERNAME
+------------------------------
+SCOTT
+
+{% endhighlight %}
+
+SCOTT user exists.but U2 is not available.
+Database succesfully completed the flashback operation to given SCN.
+
+
 
 
 
