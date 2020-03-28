@@ -91,7 +91,7 @@ SQL> select log_mode,flashback_on from v$database;
 
 LOG_MODE     FLASHBACK_ON
 ------------ ------------------
-NOARCHIVELOG NO
+ARCHIVELOG NO
 
 {% endhighlight %}
 
