@@ -636,6 +636,12 @@ USERNAME
 ------------------------------
 SCOTT
 
+SQL> conn SCOTT/scott
+Connected.
+SQL> show user;
+USER is "SCOTT"
+SQL> 
+
 {% endhighlight %}
 
 SCOTT user exists.but U2 is not available.
