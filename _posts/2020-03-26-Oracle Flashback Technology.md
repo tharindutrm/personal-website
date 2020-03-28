@@ -9,7 +9,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 ## 1. Set Database Parameters 
 
 
-1.1 DB_FLASHBACK_RETENTION_TARGET: Time limit(minutes) for the deleted data to be retained
+1.1 DB_FLASHBACK_RETENTION_TARGET: Time limit(minutes) for the deleted data to be retained.
 
 {% highlight SQL %}  
 
@@ -43,16 +43,6 @@ NAME				     TYPE	 VALUE
 ------------------------------------ ----------- ------------------------------
 db_flashback_retention_target	     integer	 4320
 
-{% endhighlight %}
-
-{% highlight SQL %}
-
-SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
-
-NAME				     TYPE	 VALUE
------------------------------------- ----------- ------------------------------
-db_flashback_retention_target	     integer	 4320
-
 SQL> show parameter DB_RECOVERY_FILE_DEST_SIZE;
 
 NAME				     TYPE	 VALUE
@@ -71,10 +61,6 @@ SQL> show parameter undo_retention;
 NAME				     TYPE	 VALUE
 ------------------------------------ ----------- ------------------------------
 undo_retention			     integer	 900
-
-{% endhighlight %}
-
-{% highlight SQL %}
 
 SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
 
@@ -112,13 +98,16 @@ Flashback drop is used to restore accidentally dropped tables and depended objec
 
 **Before doing flashback, confirm that the dropped object has not been purged**
 
-```SQL
+{% highlight SQL %}
 
 FLASHBACK TABLE EMP2 TO BEFORE DROP;
-```
+
+{% endhighlight %}
+
 ### CASE 1. Tabaes Without Indexes
 
-```SQL
+{% highlight SQL %}
+
 SQL> select table_name from user_tables;
 
 SQL> create table emp2 as select * from emp1;
