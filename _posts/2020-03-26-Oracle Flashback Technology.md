@@ -95,6 +95,7 @@ NOARCHIVELOG NO
 
 ### 3.1 DROP TABLE
 
+
 Flashback drop is used to restore accidentally dropped tables and depended objects. After restoring the table will be renamed as its original whereas the indexes will have system generated names. 
 
 **Before doing flashback, confirm that the dropped object has not been purged**
