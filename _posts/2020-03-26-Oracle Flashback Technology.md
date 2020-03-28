@@ -9,7 +9,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 ## 1. Set Database Parameters 
 
 
-1.1 DB_FLASHBACK_RETENTION_TARGET: Time limit(minutes) for the deleted data to be retained.
+1.1 DB_FLASHBACK_RETENTION_TARGET: Time limit (in minutes) for the deleted data to be retained.
 
 {% highlight SQL %}  
 
@@ -70,7 +70,7 @@ UNDOTBS1		       NOGUARANTEE
 
 {% endhighlight %}
 
---Switching from  NOGUARANTEE to GUARANTEE
+**Switching from  NOGUARANTEE to GUARANTEE**
 
 {% highlight SQL %}
 
@@ -100,7 +100,7 @@ Flashback drop is used to restore accidentally dropped tables and depended objec
 
 {% highlight SQL %}
 
-FLASHBACK TABLE EMP2 TO BEFORE DROP;
+SQL>FLASHBACK TABLE EMP2 TO BEFORE DROP;
 
 {% endhighlight %}
 
