@@ -58,6 +58,6 @@ topics:
     image_url: https://raw.githubusercontent.com/github/explore/6c6508f34230f0ac0d49e847a326429eefbfc030/topics/sass/sass.png
     
 # Conversion
-markdown:    kramdown
-highlighter: rouge
+markdown: kramdown
+highlighter:  rouge
 
