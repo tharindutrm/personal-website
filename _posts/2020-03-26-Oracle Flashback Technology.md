@@ -408,6 +408,7 @@ It enables you to get the undo-sql statement for a transaction. You can use that
 **To get undo-sql statement, supplement logging should be enabled.**
 
 **Undo-sql**
+
 Insert >> delete 
 
 Update>>update
@@ -424,7 +425,99 @@ FROM  Emp BETWEEN TIMESTAMP (Systimestamp - Interval '6' Minute) AND Systimestam
 
 {% endhighlight %}
 
+{% highlight SQL %}
 
+SQL> select  SUPPLEMENTAL_LOG_DATA_ALL from v$database;
+
+SUP
+---
+NO
+
+SQL> shutdown immediate;
+SQL> startup mount;
+SQL> alter database add  SUPPLEMENTAL log data;
+
+Database altered.
+SQL> alter database open;
+
+SQL> grant update on hr.emp3 to scott;
+
+SQL> conn hr/hr
+Connected.
+SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
+
+SQL> conn scott/scott
+Connected.
+SQL> update hr.emp3 set salary=4999 where id=2;
+
+1 row updated.
+
+SQL> commit;
+
+SQL> conn hr/hr
+Connected.
+
+SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	 4999
+	 3	20000
+	 4	20000
+	 
+SQL> show user;
+USER is "SYS"
+SQL> desc flashback_transaction_query;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ XID						    RAW(8)
+ START_SCN					    NUMBER
+ START_TIMESTAMP				    DATE
+ COMMIT_SCN					    NUMBER
+ COMMIT_TIMESTAMP				    DATE
+ LOGON_USER					    VARCHAR2(30)
+ UNDO_CHANGE#					    NUMBER
+ OPERATION					    VARCHAR2(32)
+ TABLE_NAME					    VARCHAR2(256)
+ TABLE_OWNER					    VARCHAR2(32)
+ ROW_ID 					    VARCHAR2(19)
+ UNDO_SQL					    VARCHAR2(4000)
+
+SQL> select UNDO_SQL from flashback_transaction_query where LOGON_USER ='SCOTT';
+
+UNDO_SQL
+--------------------------------------------------------------------------------
+delete from "SYS"."AUD$" where ROWID = 'AAAVRLAABAAAXHHAAO';
+
+update "HR"."EMP3" set "SALARY" = '20000' where ROWID = 'AAAVphAAEAAAAIrAAB';
+
+
+SQL> update "HR"."EMP3" set "SALARY" = '20000' where ROWID = 'AAAVphAAEAAAAIrAAB';
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
+
+{% endhighlight %}
 
 
 
