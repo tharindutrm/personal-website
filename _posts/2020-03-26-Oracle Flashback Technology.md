@@ -14,9 +14,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 Time limit (in minutes) for the deleted data to be retained.
 
 {% highlight SQL %}  
-
 SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
-
 {% endhighlight %}
  
 **1.2 DB_RECOVERY_FILE_DEST_SIZE**
