@@ -8,31 +8,15 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 
 ## 1. Set Database Parameters 
 
-- DB_FLASHBACK_RETENTION_TARGET: Time limit(minutes) for the deleted data to be retained
+     - DB_FLASHBACK_RETENTION_TARGET: Time limit(minutes) for the deleted data to be retained
 
 {% highlight SQL %}  
 
 SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
-SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
-
-TABLESPACE_NAME 	       RETENTION
------------------------------- -----------
-UNDOTBS1		       NOGUARANTEE
- 
-{% endhighlight %}
- 
-{% highlight SQL %}
-
-SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
-SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
-
-TABLESPACE_NAME 	       RETENTION
------------------------------- -----------
-UNDOTBS1		       NOGUARANTEE
 
 {% endhighlight %}
-
-- DB_RECOVERY_FILE_DEST_SIZE: Size limit for the maximum data that can be retained.
+ 
+     - DB_RECOVERY_FILE_DEST_SIZE: Size limit for the maximum data that can be retained.
    
 {% highlight SQL %}
 
@@ -40,7 +24,7 @@ SQL> Alter System Set DB_RECOVERY_FILE_DEST_SIZE=2G;
 
 {% endhighlight %}
 
-- DB_RECOVERY_FILE_DEST: Location where the data needs to be retained.
+     - DB_RECOVERY_FILE_DEST: Location where the data needs to be retained.
     
 {% highlight SQL %}
 
