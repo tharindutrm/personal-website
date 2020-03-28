@@ -407,10 +407,12 @@ Transaction Query Feature uses the FLASHBACK_TRANSACTION_QUERY view for retrievi
 It enables you to get the undo-sql statement for a transaction. You can use that undo sql statement to revert back the changes made by the transaction. 
 **To get undo-sql statement, supplement logging should be enabled.**
 
-**Undo-sql 
+**Undo-sql**
 Insert >> delete 
+
 Update>>update
-Delete>> insert**
+
+Delete>> insert
 
 {% highlight SQL %}
 
@@ -421,6 +423,7 @@ SELECT  Versions_Xid
 FROM  Emp BETWEEN TIMESTAMP (Systimestamp - Interval '6' Minute) AND Systimestamp);
 
 {% endhighlight %}
+
 
 
 
