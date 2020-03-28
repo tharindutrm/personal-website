@@ -8,7 +8,7 @@ Use to recover data from Logical corruptions. Most of the Flashback technologies
 
 ## 1. Set Database Parameters ##
 
-**1.1 DB_FLASHBACK_RETENTION_TARGET**
+**1.1 `DB_FLASHBACK_RETENTION_TARGET`**
 
 Time limit (in minutes) for the deleted data to be retained.
 
