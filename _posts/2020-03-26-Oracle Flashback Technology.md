@@ -22,39 +22,35 @@ UNDOTBS1		       NOGUARANTEE
 {% endhighlight %}
  
 {% highlight SQL %}
-SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
-SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
 
-TABLESPACE_NAME 	       RETENTION
------------------------------- -----------
-UNDOTBS1	
-{% endhighlight %}
- 
-{% highlight SQL %}
 SQL> Alter System Set DB_FLASHBACK_RETENTION_TARGET=4320;
 SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
 
 TABLESPACE_NAME 	       RETENTION
 ------------------------------ -----------
 UNDOTBS1		       NOGUARANTEE
-{% endhighlight %}
 
+{% endhighlight %}
 
 - DB_RECOVERY_FILE_DEST_SIZE: Size limit for the maximum data that can be retained.
    
-```SQL
+{% highlight SQL %}
+
 SQL> Alter System Set DB_RECOVERY_FILE_DEST_SIZE=2G;
-```
+
+{% endhighlight %}
 
 - DB_RECOVERY_FILE_DEST: Location where the data needs to be retained.
     
-```SQL
+{% highlight SQL %}
+
 SQL> Alter System Set DB_RECOVERY_FILE_DEST='/Source/File/';
-```
+
+{% endhighlight %}
 
 ## 2. Check Database Parameters
 
-```SQL
+{% highlight SQL %}
 
 SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 
@@ -62,9 +58,10 @@ NAME				     TYPE	 VALUE
 ------------------------------------ ----------- ------------------------------
 db_flashback_retention_target	     integer	 4320
 
-```
+{% endhighlight %}
 
-```SQL
+{% highlight SQL %}
+
 SQL> show parameter DB_FLASHBACK_RETENTION_TARGET;
 
 NAME				     TYPE	 VALUE
@@ -89,21 +86,23 @@ SQL> show parameter undo_retention;
 NAME				     TYPE	 VALUE
 ------------------------------------ ----------- ------------------------------
 undo_retention			     integer	 900
-```
 
-<img src="../img/11.JPG" alt="hi" class="inline"/>
+{% endhighlight %}
 
-```SQL
+{% highlight SQL %}
+
 SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
 
 TABLESPACE_NAME 	       RETENTION
 ------------------------------ -----------
 UNDOTBS1		       NOGUARANTEE
 
-```
-Switching from  NOGUARANTEE to GUARANTEE
+{% endhighlight %}
 
-```SQL
+--Switching from  NOGUARANTEE to GUARANTEE
+
+{% highlight SQL %}
+
 ALTER TABLESPACE UNDOTBS1 RETENTION GUARANTEE;
 
 SQL> select TABLESPACE_NAME,RETENTION from dba_tablespaces where tablespace_name like 'UNDO%';
@@ -119,7 +118,7 @@ LOG_MODE     FLASHBACK_ON
 ------------ ------------------
 NOARCHIVELOG NO
 
-```
+{% endhighlight %}
 
 ## 3. Flashback Scenarios
 
