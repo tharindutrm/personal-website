@@ -92,6 +92,7 @@ NOARCHIVELOG NO
 
 ## 3. Flashback Scenarios
 
+
 ### 3.1 DROP TABLE
 
 Flashback drop is used to restore accidentally dropped tables and depended objects. After restoring the table will be renamed as its original whereas the indexes will have system generated names. 
@@ -193,7 +194,7 @@ EMP3			       IND3
 
 {% endhighlight %}
 
-###3.2 Oracle Flashback Version Query###
+### 3.2 Oracle Flashback Version Query ###
 
 This feature helps to view all the versions of all the rows that ever existed in one or more tables in between two points in time or system change numbers (SCN).This feature also depends on **UNDO** data.
 
@@ -307,9 +308,95 @@ SQL> select * from emp3;
 	 3	20000
 	 4	20000
 
+SQL> select id,salary from emp3 as of timestamp sysdate-interval '10' minute where id=3;
+
+	ID     SALARY
+---------- ----------
+	 3	27700
+
+SQL> select id,salary from emp3 as of timestamp sysdate-interval '1' minute where id=3;
+
+	ID     SALARY
+---------- ----------
+	 3	20000
+
 {% endhighlight %}
 
+#### Update multiple rows ####
 
+{% highlight SQL %}
+
+SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
+
+SQL> update emp3 set salary=1999;
+
+4 rows updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	 1999
+	 2	 1999
+	 3	 1999
+	 4	 1999
+
+SQL> select versions_startscn,versions_endscn,id,salary from emp3 versions between scn minvalue and maxvalue where id=3;
+
+VERSIONS_STARTSCN VERSIONS_ENDSCN	  ID	 SALARY
+----------------- --------------- ---------- ----------
+	  1244311			   3	   1999
+	  1243820	  1244311	   3	  20000
+	  1243820			   3	  27700
+	  1243556	  1243820	   3	  27700
+	  1243543	  1243556	   3	  19900
+			  1243543	   3	  20000
+
+6 rows selected.
+
+SQL> select * from emp3 as of scn 1244311;
+
+	ID     SALARY
+---------- ----------
+	 1	 1999
+	 2	 1999
+	 3	 1999
+	 4	 1999
+
+SQL> select * from emp3 as of scn 1244310;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
+
+SQL> flashback table emp3 to scn 1244310;
+
+Flashback complete.
+
+SQL> select * from emp3;
+
+	ID     SALARY
+---------- ----------
+	 1	20000
+	 2	20000
+	 3	20000
+	 4	20000
+
+{% endhighlight %}
 
 
 
