@@ -594,6 +594,8 @@ NAME
 
 **Drop SCOTT schema and flashback database**
 
+{% highlight SQL %}
+
 SQL> select username from dba_users where username='SCOTT';
 
 USERNAME
