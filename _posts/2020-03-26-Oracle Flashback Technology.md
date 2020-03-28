@@ -101,7 +101,7 @@ Flashback drop is used to restore accidentally dropped tables and depended objec
 
 {% highlight SQL %}
 
-SQL>FLASHBACK TABLE EMP2 TO BEFORE DROP;
+SQL> FLASHBACK TABLE EMP2 TO BEFORE DROP;
 
 {% endhighlight %}
 
