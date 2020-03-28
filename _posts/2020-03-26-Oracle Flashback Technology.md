@@ -398,6 +398,32 @@ SQL> select * from emp3;
 
 {% endhighlight %}
 
+### 3.3 Flashback Transcation Query ###
+
+Flashback Transaction query allows viewing changes made by single transaction or all transactions during a period of time.
+
+Transaction Query Feature uses the FLASHBACK_TRANSACTION_QUERY view for retrieving transaction information.
+
+It enables you to get the undo-sql statement for a transaction. You can use that undo sql statement to revert back the changes made by the transaction. 
+**To get undo-sql statement, supplement logging should be enabled.**
+
+**Undo-sql 
+Insert >> delete 
+Update>>update
+Delete>> insert**
+
+{% highlight SQL %}
+
+SELECT Logon_User, Operation, Start_Timestamp, Undo_Sql
+FROM Flashback_Transaction_Query
+WHERE Xid In (
+SELECT  Versions_Xid
+FROM  Emp BETWEEN TIMESTAMP (Systimestamp - Interval '6' Minute) AND Systimestamp);
+
+{% endhighlight %}
+
+
+
 
 
 
